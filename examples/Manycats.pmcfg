@@ -1,0 +1,153 @@
+
+# Example PMCFG automatically generated from 
+# a grammar written in Grammatical Framework
+
+big:F12 : A:C0 <- 
+small:F13 : A:C0 <- 
+a:F14 : D:C3 <- 
+this:F15 : D:C3 <- 
+many:F16 : D:C5 <- 
+plind:F17 : D:C5 <- 
+these:F18 : D:C5 <- 
+ap:F19 : N:C6 <- A:C0 N:C6
+catt:F20 : N:C6 <- 
+dog:F21 : N:C6 <- 
+house:F22 : N:C6 <- 
+i:F23 : NP:C9 <- 
+npp:F24 : NP:C11 <- NP:C11 PP:C18
+npp:F24 : NP:C13 <- NP:C13 PP:C18
+npp:F24 : NP:C16 <- NP:C16 PP:C18
+npp:F24 : NP:C9 <- NP:C9 PP:C18
+you:F25 : NP:C11 <- 
+np:F26 : NP:C13 <- _:C27 N:C6
+np:F27 : NP:C16 <- _:C28 _:C29
+behind:F28 : P:C17 <- 
+inn:F29 : P:C17 <- 
+on:F30 : P:C17 <- 
+under:F31 : P:C17 <- 
+pp:F32 : PP:C18 <- P:C17 _:C30
+phr:F33 : Phr:C19 <- Utt:C21
+s:F34 : S:C20 <- NP:C9 VP:C26
+s:F35 : S:C20 <- NP:C11 VP:C26
+s:F36 : S:C20 <- NP:C13 VP:C26
+s:F37 : S:C20 <- NP:C16 VP:C26
+utt:F38 : Utt:C21 <- S:C20
+run:F39 : V1:C23 <- 
+sleep:F40 : V1:C23 <- 
+hunt:F41 : V2:C25 <- 
+see:F42 : V2:C25 <- 
+vp1:F43 : VP:C26 <- V1:C23
+vp2:F44 : VP:C26 <- V2:C25 _:C30
+vpp:F45 : VP:C26 <- VP:C26 PP:C18
+_:F:C27:C3 : _:C27 <- D:C3
+_:F:C28:C5 : _:C28 <- D:C5
+_:F:C29:C6 : _:C29 <- N:C6
+_:F:C30:C11 : _:C30 <- NP:C11
+_:F:C30:C13 : _:C30 <- NP:C13
+_:F:C30:C16 : _:C30 <- NP:C16
+_:F:C30:C9 : _:C30 <- NP:C9
+
+big:F12 = S1 S1
+small:F13 = S2 S2
+a:F14 = S3
+this:F15 = S4
+many:F16 = S5
+plind:F17 = S6
+these:F18 = S7
+ap:F19 = S8 S9
+catt:F20 = S10 S11
+dog:F21 = S12 S13
+house:F22 = S14 S15
+i:F23 = S16 S17
+npp:F24 = S8 S18
+you:F25 = S19 S19
+np:F26 = S8 S8
+np:F27 = S20 S20
+behind:F28 = S21
+inn:F29 = S22
+on:F30 = S23
+under:F31 = S24
+pp:F32 = S20
+phr:F33 = S25
+s:F34 = S26
+s:F35 = S27
+s:F36 = S28
+s:F37 = S29
+utt:F38 = S25
+run:F39 = S30 S31 S6
+sleep:F40 = S32 S33 S6
+hunt:F41 = S34 S35 S6 S6
+see:F42 = S36 S37 S6 S6
+vp1:F43 = S6 S6 S25 S6 S6 S6 S25 S6 S6 S6 S38 S6 S6 S6 S25 S6 S6 S39 S6 S6 S6 S6
+vp2:F44 = S6 S6 S25 S6 S6 S6 S25 S6 S6 S6 S38 S6 S6 S6 S25 S6 S6 S40 S41 S41 S41 S41
+vpp:F45 = S25 S38 S39 S40 S42 S43 S44 S45 S46 S47 S48 S49 S50 S51 S52 S53 S54 S55 S56 S57 S58 S59
+_:F:C27:C3 = SX
+_:F:C28:C5 = SX
+_:F:C29:C6 = SX SX
+_:F:C30:C11 = SX SX
+_:F:C30:C13 = SX SX
+_:F:C30:C16 = SX SX
+_:F:C30:C9 = SX SX
+
+S0 -> 
+S1 -> "big"
+S10 -> "cat"
+S11 -> "cats"
+S12 -> "dog"
+S13 -> "dogs"
+S14 -> "house"
+S15 -> "houses"
+S16 -> "I"
+S17 -> "me"
+S18 -> 0:1 1:0
+S19 -> "you"
+S2 -> "small"
+S20 -> 0:0 1:1
+S21 -> "behind"
+S22 -> "in"
+S23 -> "on"
+S24 -> "under"
+S25 -> 0:0
+S26 -> 0:0 1:1 1:0 1:16 1:2 1:3 1:17 1:18
+S27 -> 0:0 1:5 1:4 1:16 1:6 1:7 1:17 1:19
+S28 -> 0:0 1:9 1:8 1:16 1:10 1:11 1:17 1:20
+S29 -> 0:0 1:13 1:12 1:16 1:14 1:15 1:17 1:21
+S3 -> "a"
+S30 -> "run"
+S31 -> "runs"
+S32 -> "sleep"
+S33 -> "sleeps"
+S34 -> "hunt"
+S35 -> "hunts"
+S36 -> "see"
+S37 -> "sees"
+S38 -> 0:1
+S39 -> 0:2
+S4 -> "this"
+S40 -> 0:3
+S41 -> 0:2 1:1
+S42 -> 0:4
+S43 -> 0:5
+S44 -> 0:6
+S45 -> 0:7
+S46 -> 0:8
+S47 -> 0:9
+S48 -> 0:10
+S49 -> 0:11
+S5 -> "many"
+S50 -> 0:12
+S51 -> 0:13
+S52 -> 0:14
+S53 -> 0:15
+S54 -> 0:16
+S55 -> 0:17
+S56 -> 0:18 1:0
+S57 -> 0:19 1:0
+S58 -> 0:20 1:0
+S59 -> 0:21 1:0
+S6 -> 
+S7 -> "these"
+S8 -> 0:0 1:0
+S9 -> 0:1 1:1
+SX -> 0:0
+
