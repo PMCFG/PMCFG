@@ -29,6 +29,24 @@ This is definition of a probabilistic ranking of 3.4 for function `f`:
 
      f 3.4
 
+In order to give different names to a single rule, there is a shorthand notation which is as follows.
+
+     f : A <- B C D
+     g : A <- B C D
+
+is equivalent to writing
+
+     f g : A <- B C D
+
+The same shorthand notation can be used for linearization definitions:
+
+     f = s1 s2 s3
+     g = s1 s2 s3
+
+is equivalent to
+
+     f g = s1 s2 s3
+
 All pragma names, function names, rule nonterminals and sequence names are *identifiers*. An identifier must start with an alphanumeric character, followed by any number of non-whitespace characters.
 
 In sequence definitions, the strings can contain whitespace or any other character until the end-quote. Strings are delimited either by double-quote (") or by single-quote ('). The interpretation of a string is the same as string literals in Python or Javascript.
@@ -53,8 +71,8 @@ The following is a EBNF definition of the grammat format:
 
     Comment ::= Cmnt NonNL* 
     Pragma  ::= ":" Ident? (WS+ NonNL*)?
-    Rule    ::= Ident WS+ ":" WS+ Ident "<-" (WS+ Ident)*
-    Lin     ::= Ident WS+ "=" (WS+ Ident)*
+    Rule    ::= (Ident WS+)+ ":" WS+ Ident "<-" (WS+ Ident)*
+    Lin     ::= (Ident WS+)+ "=" (WS+ Ident)*
     Linseq  ::= Ident WS+ "=>" (WS+ Symbol)*
     Score   ::= Ident WS+ (Int|Float)
 
