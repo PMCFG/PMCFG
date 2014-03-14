@@ -144,47 +144,57 @@ def read_grammar(lines, validate=True):
                 pragmas.setdefault(pragma, []).append(info)
                 continue
 
-            ident, keyword, rest = whitespace_split(rest, 2)
-            if not is_identifier(ident):
-                raise SyntaxError("Not an identifier: %r" % (ident,))
+            idents = []
+            ident, rest = whitespace_split(rest, 1)
+            while is_identifier(ident):
+                idents.append(ident)
+                ident, rest = whitespace_split(rest, 1)
+            if len(idents) == 0:
+                raise SyntaxError("No identifier found: %r" % (line,))
+            keyword = ident
 
             if keyword == RULE:
                 (lhs, rhs) = read_rule(rest)
-                functions.setdefault(ident, []).append((lhs, rhs))
-                lhs_arity = nonterms.get(lhs)
-                fun_arity = fun_arities.get(ident)
-                if fun_arity is not None:
-                    if lhs_arity is None:
-                        nonterms[lhs] = fun_arity
-                    elif lhs_arity != fun_arity:
-                        raise ValueError("Nonterminal %r/%s does not match function %r/%s" % (lhs, lhs_arity, ident, fun_arity))
-                for r in rhs:
-                    nonterms.setdefault(r, None)
-                    if (r in linearizations or r in functions or r in sequences):
-                        raise ValueError("Nonterminal %r already occurs as a function or a sequence identifier" % (r,))
-                if (lhs in linearizations or lhs in functions or lhs in sequences):
-                    raise ValueError("Nonterminal %r already occurs as a function or a sequence identifier" % (lhs,))
-                if (ident in nonterms or ident in sequences):
-                    raise ValueError("Function %r already occurs as a nonterminal or a sequence identifier" % (ident,))
+                for ident in idents: 
+                    functions.setdefault(ident, []).append((lhs, rhs))
+                    lhs_arity = nonterms.get(lhs)
+                    fun_arity = fun_arities.get(ident)
+                    if fun_arity is not None:
+                        if lhs_arity is None:
+                            nonterms[lhs] = fun_arity
+                        elif lhs_arity != fun_arity:
+                            raise ValueError("Nonterminal %r/%s does not match function %r/%s" % (lhs, lhs_arity, ident, fun_arity))
+                    for r in rhs:
+                        nonterms.setdefault(r, None)
+                        if (r in linearizations or r in functions or r in sequences):
+                            raise ValueError("Nonterminal %r already occurs as a function or a sequence identifier" % (r,))
+                    if (lhs in linearizations or lhs in functions or lhs in sequences):
+                        raise ValueError("Nonterminal %r already occurs as a function or a sequence identifier" % (lhs,))
+                    if (ident in nonterms or ident in sequences):
+                        raise ValueError("Function %r already occurs as a nonterminal or a sequence identifier" % (ident,))
 
             elif keyword == LINEARIZATION:
                 lin = read_linearization(rest)
-                if linearizations.get(ident) is not None:
-                    raise ValueError("Duplicate linearization for %r" (ident,))
-                linearizations[ident] = lin
-                fun_arities[ident] = fun_arity = len(lin)
-                for lhs, _rhs in functions.get(ident, []):
-                    lhs_arity = nonterms.get(lhs)
-                    if lhs_arity is None:
-                        nonterms[lhs] = fun_arity
-                    elif lhs_arity != fun_arity:
-                        raise ValueError("Nonterminal %r/%s does not match function %r/%s" % (lhs, lhs_arity, ident, fun_arity))
-                for seq in lin:
-                    sequences.setdefault(seq, None)
-                if (ident in nonterms or ident in sequences):
-                    raise ValueError("Function %r already occurs as a nonterminal or a sequence identifier" % (ident,))
+                for ident in idents:
+                    if linearizations.get(ident) is not None:
+                        raise ValueError("Duplicate linearization for %r" (ident,))
+                    linearizations[ident] = lin
+                    fun_arities[ident] = fun_arity = len(lin)
+                    for lhs, _rhs in functions.get(ident, []):
+                        lhs_arity = nonterms.get(lhs)
+                        if lhs_arity is None:
+                            nonterms[lhs] = fun_arity
+                        elif lhs_arity != fun_arity:
+                            raise ValueError("Nonterminal %r/%s does not match function %r/%s" % (lhs, lhs_arity, ident, fun_arity))
+                    for seq in lin:
+                        sequences.setdefault(seq, None)
+                    if (ident in nonterms or ident in sequences):
+                        raise ValueError("Function %r already occurs as a nonterminal or a sequence identifier" % (ident,))
 
             elif keyword == SEQUENCE:
+                if len(idents) != 1:
+                    raise ValueError("Only one id per sequence definition allowed, got %d" % len(idents))
+                ident = idents[0]
                 tokens = read_sequence(rest)
                 if sequences.get(ident) is not None:
                     raise ValueError("Duplicate sequence for %r" % (ident,))
